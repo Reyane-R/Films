@@ -8,7 +8,7 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*.
 
 ```{r}
-plot(cars)
+
 ```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
@@ -25,8 +25,9 @@ Calculer les Distances
 
 ```{r}
 distances = dist(Films[5:22], method ='euclidean')
-
 ```
+
+hclust : Hie
 
 ```{r}
 RHFilms = hclust(distances , method = "ward.D2")
@@ -34,5 +35,47 @@ plot(RHFilms)
 ```
 
 ```{r}
+GroupesCluster = cutree(RHFilms, k = 10)
+```
 
+```{r}
+tapply(Films$Action, GroupesCluster, mean)
+tapply(Films$Animation, GroupesCluster, mean)
+tapply(Films$Enfants, GroupesCluster, mean)
+tapply(Films$Comedie, GroupesCluster, mean)
+tapply(Films$Policier, GroupesCluster, mean)
+tapply(Films$Documentaire, GroupesCluster, mean)
+tapply(Films$Drame, GroupesCluster, mean)
+tapply(Films$Fantastique, GroupesCluster, mean)
+tapply(Films$Romance, GroupesCluster, mean)
+tapply(Films$Fantastique, GroupesCluster, mean)
+tapply(Films$Film_Noir, GroupesCluster, mean)
+tapply(Films$Mystere, GroupesCluster, mean)
+tapply(Films$Thriller, GroupesCluster, mean)
+tapply(Films$Musical, GroupesCluster, mean)
+tapply(Films$Horreur, GroupesCluster, mean)
+tapply(Films$Aventure, GroupesCluster, mean)
+```
+
+Choisir un Film
+
+```{r}
+Films$Titre
+subset(Films, Titre == "Air Force One (1997)")
+```
+
+Determiner dans quel cluster il se trouve
+
+```{r}
+GroupesCluster[300]
+```
+
+Creer une data.frame avec les films appartenant au Cluster2
+
+```{r}
+cluster2 = subset(Films, GroupesCluster==2)
+```
+
+```{r}
+cluster2$Titre[1:10]
 ```
